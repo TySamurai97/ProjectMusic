@@ -93,6 +93,7 @@ public class MusicList extends Fragment {
                         if(context.musicService.isPng()){
                             context.musicService.seek(0);
                         }
+                        context.seekBar2.setMax(context.musicService.getDur());
                         context.btn_hide.setImageDrawable(null);
                         context.btn_hide.setImageResource(R.mipmap.pause);
                         context.play.setImageDrawable(null);

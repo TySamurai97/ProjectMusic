@@ -65,11 +65,8 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Log.d("TAG","sng cmplete");
-        if(player.getCurrentPosition()>=0){
-            mp.reset();
-            playNext();
-        }
+        mp.reset();
+        playNext();
     }
 
 
@@ -94,6 +91,10 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
     public int getPosn(){
         return player.getCurrentPosition();
+    }
+
+    public int getSongIndex(){
+        return songPosition;
     }
 
     public int getDur(){
@@ -147,7 +148,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
         player.setOnPreparedListener(this);
         player.setOnErrorListener(this);
-        player.setOnPreparedListener(this);
+        player.setOnCompletionListener(this);
     }
 
     public class MusicBinder extends Binder{

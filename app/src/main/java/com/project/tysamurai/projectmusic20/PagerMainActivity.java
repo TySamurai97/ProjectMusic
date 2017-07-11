@@ -283,6 +283,8 @@ public class PagerMainActivity extends AppCompatActivity {
             if(musicService.isPng()) {
                 Double x = ((double)musicService.getPosn()) / musicService.getDur();
                 seekBar2.setProgress((int)(x*100));
+                songname.setText(allSongList.get(musicService.getSongIndex()).getTitle());
+                artist.setText(allSongList.get(musicService.getSongIndex()).getArtist());
                 seekBarTouched=false;
             }
         }
