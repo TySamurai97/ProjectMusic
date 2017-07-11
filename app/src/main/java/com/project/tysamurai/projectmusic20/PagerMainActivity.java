@@ -15,6 +15,7 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -200,6 +201,13 @@ public class PagerMainActivity extends AppCompatActivity {
             }
         });
 
+        seekBar2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                seekBarTouched=true;
+                return false;
+            }
+        });
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -209,6 +217,7 @@ public class PagerMainActivity extends AppCompatActivity {
                     Float x = ((float) progress) / 101;
                     Integer y = (int) (x * musicService.getDur());
                     musicService.seek(y);
+
                     seekBarTouched=false;
                 }
             }
@@ -283,6 +292,7 @@ public class PagerMainActivity extends AppCompatActivity {
             if(musicService.isPng()) {
                 Double x = ((double)musicService.getPosn()) / musicService.getDur();
                 seekBar2.setProgress((int)(x*100));
+                //seekBar2.setProgress(musicService.getPosn());
                 songname.setText(allSongList.get(musicService.getSongIndex()).getTitle());
                 artist.setText(allSongList.get(musicService.getSongIndex()).getArtist());
                 seekBarTouched=false;

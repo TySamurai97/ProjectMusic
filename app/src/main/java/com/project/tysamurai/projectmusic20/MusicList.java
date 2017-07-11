@@ -85,7 +85,6 @@ public class MusicList extends Fragment {
             holder.element.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context, allSongList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                     if(context.musicService!=null) {
                         context.musicService.setSongPosition(position);
                         context.musicService.playSong();
@@ -93,13 +92,13 @@ public class MusicList extends Fragment {
                         if(context.musicService.isPng()){
                             context.musicService.seek(0);
                         }
-                        context.seekBar2.setMax(context.musicService.getDur());
                         context.btn_hide.setImageDrawable(null);
                         context.btn_hide.setImageResource(R.mipmap.pause);
                         context.play.setImageDrawable(null);
                         context.play.setImageResource(R.mipmap.pause);
                         context.songname.setText(allSongList.get(position).getTitle());
                         context.artist.setText(allSongList.get(position).getArtist());
+                        //context.seekBar2.setMax(context.musicService.getDur());
                         context.seekBar2.setProgress(0);
                     }
                 }

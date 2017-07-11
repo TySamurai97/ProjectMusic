@@ -78,7 +78,6 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
         Uri songUri= ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 currentSong.getId());
-
         try {
             player.setDataSource(getApplicationContext(), songUri);
         }
@@ -93,9 +92,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
         return player.getCurrentPosition();
     }
 
-    public int getSongIndex(){
-        return songPosition;
-    }
+    public int getSongIndex(){return songPosition;}
 
     public int getDur(){
         return player.getDuration();
