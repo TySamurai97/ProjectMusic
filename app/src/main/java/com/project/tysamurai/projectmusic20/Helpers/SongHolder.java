@@ -1,4 +1,4 @@
-package com.project.tysamurai.projectmusic20;
+package com.project.tysamurai.projectmusic20.Helpers;
 
 import android.media.Image;
 import android.support.v7.widget.CardView;
@@ -9,14 +9,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.project.tysamurai.projectmusic20.R;
+
 /**
  * Created by tanay on 8/4/17.
  */
 
 public class SongHolder extends RecyclerView.ViewHolder {
-    TextView artist,title;
-    CardView element;
-    ImageView songimage;
+    public TextView artist,title;
+    public CardView element;
+    public ImageView songimage;
 
     public SongHolder(View itemView) {
         super(itemView);

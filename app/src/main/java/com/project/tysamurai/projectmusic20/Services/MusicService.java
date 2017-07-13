@@ -1,4 +1,4 @@
-package com.project.tysamurai.projectmusic20;
+package com.project.tysamurai.projectmusic20.Services;
 
 import android.app.Service;
 import android.content.ContentUris;
@@ -8,16 +8,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.IInterface;
-import android.os.Parcel;
 import android.os.PowerManager;
-import android.os.RemoteException;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.io.FileDescriptor;
+import com.project.tysamurai.projectmusic20.POJO.Songs;
+
 import java.util.ArrayList;
 
 /**
@@ -72,7 +68,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
 //---------------------------------------------------------------------------------Service control methods
 
-    void playSong(){
+    public void playSong(){
         player.reset();
         Songs currentSong=songList.get(songPosition);
 
@@ -149,7 +145,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
     }
 
     public class MusicBinder extends Binder{
-        MusicService getService(){
+        public MusicService getService(){
             return MusicService.this;
         }
     }

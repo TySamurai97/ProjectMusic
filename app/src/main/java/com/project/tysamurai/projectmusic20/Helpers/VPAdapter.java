@@ -1,4 +1,4 @@
-package com.project.tysamurai.projectmusic20;
+package com.project.tysamurai.projectmusic20.Helpers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

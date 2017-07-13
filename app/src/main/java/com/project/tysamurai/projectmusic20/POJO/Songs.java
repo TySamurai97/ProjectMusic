@@ -1,4 +1,4 @@
-package com.project.tysamurai.projectmusic20;
+package com.project.tysamurai.projectmusic20.POJO;
 
 import android.support.annotation.NonNull;
 

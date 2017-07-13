@@ -1,4 +1,4 @@
-package com.project.tysamurai.projectmusic20;
+package com.project.tysamurai.projectmusic20.Activities;
 
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,29 +22,35 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.tysamurai.projectmusic20.Fragments.MusicList;
+import com.project.tysamurai.projectmusic20.Fragments.RecommendedMusic;
+import com.project.tysamurai.projectmusic20.Services.MusicService;
+import com.project.tysamurai.projectmusic20.R;
+import com.project.tysamurai.projectmusic20.POJO.Songs;
+import com.project.tysamurai.projectmusic20.Utls;
+import com.project.tysamurai.projectmusic20.Helpers.VPAdapter;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class PagerMainActivity extends AppCompatActivity {
 
-    Intent playIntent;
-    MusicService musicService;
-    ViewPager vPager;
-    TabLayout tabLayout;
-    MusicList musicFrag;
-    LinearLayout musicArea;
-    TextView songname,artist;
-    SlidingUpPanelLayout slidingPaneLayout;
-    ImageView play,playNext,playPrev,btn_hide;
-    RecommendedMusic musicRecom;
-    SeekBar seekBar2;
+    public Intent playIntent;
+    public MusicService musicService;
+    public ViewPager vPager;
+    public TabLayout tabLayout;
+    public MusicList musicFrag;
+    public LinearLayout musicArea;
+    public TextView songname,artist,totalDuration,currentPos;
+    public SlidingUpPanelLayout slidingPaneLayout;
+    public ImageView play,playNext,playPrev,btn_hide;
+    public RecommendedMusic musicRecom;
+    public SeekBar seekBar2;
     ArrayList<Songs> allSongList;
     boolean musicBound=false;
     SeekTask task;
+    Utls utls;
     boolean seekBarTouched;
 
     private ServiceConnection musicConnection = new ServiceConnection(){
@@ -101,12 +106,15 @@ public class PagerMainActivity extends AppCompatActivity {
         seekBar2=(SeekBar) findViewById(R.id.seekBar2);
         songname=(TextView) findViewById(R.id.name);
         artist=(TextView) findViewById(R.id.artist);
+        totalDuration=(TextView) findViewById(R.id.totalDur);
+        currentPos=(TextView) findViewById(R.id.currentPos);
+
+        utls=new Utls();
         task=new SeekTask();
 
-
-        task.execute();
         allSongList=new ArrayList<>();
         getSongList();
+        task.execute();
 
         vPager.setOffscreenPageLimit(2);
         setViewPager(vPager);
@@ -214,7 +222,7 @@ public class PagerMainActivity extends AppCompatActivity {
                 //Log.d("TAG"," "+ String.valueOf(progress));
                 //seekBarTouched=true;
                 if(seekBarTouched) {
-                    Float x = ((float) progress) / 101;
+                    Float x = ((float) progress) / 400;
                     Integer y = (int) (x * musicService.getDur());
                     musicService.seek(y);
 
@@ -291,9 +299,13 @@ public class PagerMainActivity extends AppCompatActivity {
             //Toast.makeText(musicService, "yo", Toast.LENGTH_SHORT).show();
             if(musicService.isPng()) {
                 Double x = ((double)musicService.getPosn()) / musicService.getDur();
-                seekBar2.setProgress((int)(x*100));
+                seekBar2.setProgress((int)(x*400));
                 //seekBar2.setProgress(musicService.getPosn());
                 songname.setText(allSongList.get(musicService.getSongIndex()).getTitle());
+                if(totalDuration!=null)
+                totalDuration.setText(utls.timeFormatter(musicService.getDur()));
+                if(currentPos!=null)
+                currentPos.setText(utls.timeFormatter(musicService.getPosn()));
                 artist.setText(allSongList.get(musicService.getSongIndex()).getArtist());
                 seekBarTouched=false;
             }
